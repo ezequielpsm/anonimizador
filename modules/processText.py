@@ -17,21 +17,12 @@ def simple_find(filename):
         (r'\(\d{2}\)\s?\d{4,5}-\d{4}', "(XX) XXXXX-XXXX"), # Telefone
     ]
 
-    # def is_email_context(match, texto):
-    #     padrao_email = r'\b\S+@\S+\.\S+\b'
-    #     for email in re.findall(padrao_email, texto):
-    #         if match in email:
-    #             return True
-    #     return False
 
     for pagina in doc:
         texto_pagina = pagina.get_text()
 
         for padrao, texto_substituto in padroes:
             for match in re.findall(padrao, texto_pagina):
-                # Previne falso-positivos (ex: emails ou links)
-                # if is_email_context(match, texto_pagina):
-                #     continue
 
                 areas = pagina.search_for(match, quads=True)
                 for quad in areas:
